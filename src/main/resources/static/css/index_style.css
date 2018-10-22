@@ -1,0 +1,165 @@
+body {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: 'Open Sans', Arial, Tahoma, sans-serif ;
+    background: #A7B3B3;
+}
+
+/*Menu*/
+
+.menu{
+    background: #87A4B7;
+    position: relative;
+    overflow: hidden;
+    height: 40px;
+}
+
+.menu ul{
+    list-style: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    left:95%;
+    float:left;
+}
+
+.menu ul li{
+    position:relativыe;
+    left:-50%;
+    float:left;
+}
+
+.menu ul li a{
+    text-decoration: none;
+    color: #2D71D0;
+    display:block;
+    padding:0 15px;
+    line-height: 40px;
+}
+
+.menu ul li a img{
+    margin-top: 5px;
+}
+
+/*File place*/
+
+.file_place{
+    position: absolute;
+    top: 10%;
+    left: 35%;
+}
+
+.file_place h2{
+    font-size: 18px;
+    color: #319ED6;
+}
+
+.file_place p{
+    font-size: 16px;
+    color: #319ED6;
+    font-weight: bold;
+}
+
+#file_select_input{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+label[for="file_select_input"] {
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px 95px;
+    font-size: 18px;
+    background-color: #743BDD;
+    color: #04485a;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+label[for="file_select_input"]:hover{
+    background-color: #7860DD;
+}
+
+
+::-webkit-scrollbar-button {
+    background-image:url('');
+    background-repeat:no-repeat;
+    width:6px;
+    height:0px
+}
+
+::-webkit-scrollbar-track {
+    background-color:#87A4B7;
+    box-shadow:0px 0px 3px #000 inset;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background-color:#354E79;
+    box-shadow:0px 1px 1px #fff inset;
+    background-image:url('https://yraaa.ru/_pu/24/59610063.png');
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+::-webkit-resizer{
+    background-image:url('');
+    background-repeat:no-repeat;
+    width:7px;
+    height:0px
+}
+
+::-webkit-scrollbar{
+    width: 11px;
+}
+
+
+
+.input_from_to{
+    color: #0A1616;
+    font-size: 16px;
+    padding-left: 10px;
+    width: 250px;
+    height: 25px;
+    border: 1px solid #c7d0d2;
+    border-radius: 2px;
+    box-shadow: inset 0 1.5px 3px rgba(190, 190, 190, .4), 0 0 0 5px #f5f7f8;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all .4s ease;
+}
+
+#btn_send{
+    margin-top: 20px;
+    width: 265px;
+    height: 35px;
+    font-size: 18px;
+    color: #fff;
+    background-color:#04485a;
+    border-radius: 5px;
+    border: 1px solid #66add6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .5);
+    cursor: pointer;
+    transition: all .4s ease;
+}
+
+#btn_send:hover{
+    background-color: #1e225a;
+}
+
+/*Footer content*/
+
+.footer_content{
+    position: fixed;
+    left: 0; bottom: 0;
+    padding: 10px;
+    background: #743BDD;
+    color: #fff;
+    width: 100%;
+    height: 2%;
+}

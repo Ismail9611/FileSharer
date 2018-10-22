@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>File Sharer</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/static/css/index_style.css}">
+</head>
+<body>
+    <div class="content">
+        <div class="menu">
+            <div class="menu">
+                <ul>
+                    <li><a th:href="@{/}"><img th:src="@{static/img/login.png}" height="30" title="Login"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="file_place">
+            <h2>Выберите файл:</h2>
+            <form enctype="multipart/form-data" method="post" th:action="@{/load_file}" class="form file_load_form">
+                <input type="file" name="shared_file" multiple required title="Не более 50MB!" id="file_select_input">
+                <label for="file_select_input"><span id="select_span">Выбрать</span></label>
+
+                <p>От кого:</p>
+                <input type="text" name="fromUser" placeholder="email/username" class="input_from_to">
+                <p>Кому:</p>
+                <input type="email" name="toEmail" placeholder="email" class="input_from_to">
+                <p title="После этой даты файл будет удален">Дата до которого активна ссылка<br>на файл:</p>
+                <input type="date" name="activeTo" class="input_from_to"><br>
+                <input type="submit" value="Отправить" id="btn_send">
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer_content">
+
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" th:src="@{/static/js/main.js}" defer></script>
+
+</body>
+</html>
