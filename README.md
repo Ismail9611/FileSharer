@@ -1,3 +1,3 @@
 # FileSharer
 File sharer based on Spring boot.
-Файлообменник, основан преимушественно на spring boot
+Приложение - файлообменник. Основан на Spring boot. Frontend-ная часть сделан с использованием Thymeleaf, и JQuery.
