@@ -49,7 +49,6 @@ public class MainController {
                             @RequestParam("activeTo") Date activeToDate,
                             RedirectAttributes redirectAttributes) throws IOException {
         String notEmptyFrom = from.equals("") ? "UnknownSender" : from;
-        System.out.println("//////////////////////////////////////controller processed///////////////");
 
         File storedFile = multipartToFile(file); // storing file on disk
 
