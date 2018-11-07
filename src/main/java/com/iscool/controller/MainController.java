@@ -2,12 +2,9 @@ package com.iscool.controller;
 
 import com.iscool.domain.SharedFile;
 import com.iscool.repository.SharedFileRepository;
-import com.iscool.service.MailService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.iscool.service.SharedFileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
@@ -16,62 +13,31 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Controller
 public class MainController {
 
-    @Value("${shared_files_storage}")
-    private String filesPath;
-
     private final SharedFileRepository sharedFileRepository;
-    private final MailService mailService;
+    private SharedFileService sharedFileService;
 
     @Autowired
-    public MainController(SharedFileRepository sharedFileRepository, MailService mailService) {
+    public MainController(SharedFileRepository sharedFileRepository, SharedFileService sharedFileService) {
         this.sharedFileRepository = sharedFileRepository;
-        this.mailService = mailService;
+        this.sharedFileService = sharedFileService;
     }
-
 
     @RequestMapping({"/", "/index"})
     public String main() {
         return "index";
     }
 
-
     @PostMapping("/load_file")
-    public String shareFile(@RequestParam("shared_file") MultipartFile file,
+    public String shareFile(@RequestParam("shared_file") MultipartFile multipartFile,
                             @RequestParam("fromUser") String from,
                             @RequestParam("toEmail") String emailTo,
                             @RequestParam("activeTo") Date activeToDate,
                             RedirectAttributes redirectAttributes) throws IOException {
-        String notEmptyFrom = from.equals("") ? "UnknownSender" : from;
-
-        File storedFile = multipartToFile(file); // storing file on disk
-
-        SharedFile sharedFile = new SharedFile();
-        sharedFile.setFilename(file.getOriginalFilename());
-        sharedFile.setFilepath(storedFile.getAbsolutePath());
-        sharedFile.setFrom(from);
-        sharedFile.setTo(emailTo);
-        sharedFile.setActiveTo(activeToDate);
-        sharedFile.setUrl("http://localhost:8080/sharedFile/" + UUID.randomUUID().toString() + "/" + file.getOriginalFilename());
-
-
-        new Thread(() -> {
-            sharedFileRepository.save(sharedFile);
-            String subject = notEmptyFrom + " have sent you a file..";
-            String messageToReceiver = "Hello, " + notEmptyFrom + " have sent you file. You can access file by link: \n"
-                    + sharedFile.getUrl() + "\n" + "The link is active until: " + sharedFile.getActiveTo()
-                    + ". After this date, the file will be deleted.";
-
-            mailService.send(emailTo, subject, messageToReceiver);
-        }).start();
-
-
+        sharedFileService.saveFile(multipartFile, from, emailTo, activeToDate);
         redirectAttributes.addFlashAttribute("message", "The file was uploaded to server");
         return "redirect:/index";
     }
@@ -103,14 +69,6 @@ public class MainController {
         }).start();
     }
 
-
-
-    private File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
-        if (multipart == null) throw new NullPointerException();
-        File convFile = new File(filesPath + "/" + multipart.getOriginalFilename());
-        multipart.transferTo(convFile);
-        return convFile;
-    }
 
 
 }
